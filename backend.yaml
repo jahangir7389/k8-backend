@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: jahangir7389/frontend_project_2:sha-db9c070
+        image: jahangir7389/backend_project_2:sha-dd7d030
         ports:
         - containerPort: 8080
           name: tcp
