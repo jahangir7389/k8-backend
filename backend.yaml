@@ -14,13 +14,46 @@ spec:
         tier: backend
         app: dice
     spec:
+      volumes:
+        - name: configmap-volume
+          configMap:
+            name: backend
       containers:
       - name: backend
         image: jahangir7389/backend_project_2:sha-dd7d030
+        volumeMounts:
+        - name: configmap-volume
+          mountPath: /user
         ports:
         - containerPort: 8080
           name: tcp
-
+        resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+        readinessProbe:
+            httpGet:
+              path: /hello
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+        livenessProbe:
+            httpGet:
+              path: /hello
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+        env:
+          - name: PORT
+            value: "8080"
+        envFrom:
+          - secretRef:
+              name: mysecret
+      restartPolicy: Always
+       
 ---
 apiVersion: v1
 kind: Service
