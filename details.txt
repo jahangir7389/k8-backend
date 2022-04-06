@@ -1,0 +1,5 @@
+name = Jahangir khan
+age = 29
+course = devops
+city = swabi
+aim = to become a devops engineer
